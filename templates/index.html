@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des fichiers</title>
     <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/style.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static',filename='favicon.ico')}}" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body class="bg-gray-50  dark:bg-gray-800 h-screen">
-    <div class="container max-w-lg mx-auto h-full flex justify-center items-cente">
+    <div class="container max-w-lg mx-auto h-full flex justify-center items-center">
+        <div class="loader hidden absolute"></div>
         <form class="flex items-center justify-center w-full" id="form">
             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -42,7 +45,13 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <script>
+            
+            $("#dropzone-file").on("click", function (e) {
+                $(".loader").removeClass("hidden");
+            })  ;
+
             $("#dropzone-file").on("change", function (e) {
+
                 let formData = new FormData();
                 let f = e.target.files[0];
                 formData.append("file", f);
@@ -56,6 +65,7 @@
                     console.log("data");
                     $("#response").html(data);
                     $(this).val("");
+                    $(".loader").addClass("hidden");
                 });
             });
 
